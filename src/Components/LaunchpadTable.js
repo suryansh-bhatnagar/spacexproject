@@ -1,15 +1,24 @@
 import React from 'react';
 import LaunchIdSec from './LaunchIdSec';
-// import { Link } from "react-router-dom";
+import './LaunchpadTable.css';
 
 const  LaunchpadTable = (props) =>{
+  
+  // Filtering out top 3 launches from  all the available launches in the launchpad
+  const generateArray = (curElem)=>{
+   let  array = curElem.launches.filter((item, index)=>{ return index >= 0 
+    && index < 3 });
+   return array;
+   
+
+  }
     return(
         <>
         <div className="container-fluid text-white">
           <div className="main-Heading">
             <h1 className="mb-5">
               {" "}
-              <span className="font-weight-bold">SpaceX Launchpads</span>
+              <p className="mt-4 font-weight-bold text-center spaceXHead">SpaceX Launchpads</p>
             </h1>
           </div>
          
@@ -24,22 +33,20 @@ const  LaunchpadTable = (props) =>{
                 </tr>
               </thead>
               <tbody>
-        
                 {props.launchpadData && props.launchpadData.map((curElem, ind) => {
                   return (
                     <tr key={ind}>
                       <td>{curElem.name}</td>
                       <td>{curElem.status}</td>
                       <td>{curElem.details}</td>
-                      <td>{ curElem.launches && curElem.launches.splice(0,3).map((elem,index)=>{
-                        return <LaunchIdSec elem = {elem} index = {index} setlaunchId={props.setlaunchId}/>
+                      <td>{ curElem.launches.length ===0 ? "No Launch Available" : generateArray(curElem).map((elem,index)=>{
+                        return <LaunchIdSec launchData = {props.launchData} elem = {elem} index = {index} setlaunchId={props.setlaunchId}/>
                       })}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-            <p id="notFound" style={{'fontWeight':'bold'}}></p>
           </div>
         </div>
       </>

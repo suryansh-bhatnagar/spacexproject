@@ -3,9 +3,9 @@
 }
 
 header::before{
-    background: url(./Components/assets/img1.jpg) no-repeat center center fixed;
+    background: url(./Components/assets/img3.jpg) no-repeat center center fixed;
+    animation: animateBg 1s ease-in;
     content: '';
-    filter: blur(3px);
     background-size: cover;
     position: fixed;
     top: 0;
@@ -13,15 +13,13 @@ header::before{
     width: 100%;
     height:inherit;
     z-index: -1;
-    /* opacity: 0.3; */
+    box-shadow: 5px 10px 20px 5px rgb(0, 0, 0) inset;
+  
 
 
 }
 
 .App-header {
-  /* background: url(./Components/assets/img3.jpg) no-repeat center center fixed; */
- 
-  /* background-size: cover; */
   height: 100%;
   overflow: hidden;
   min-height: 100vh;
@@ -31,6 +29,26 @@ header::before{
   justify-content: center;
   font-size: calc(5px + 2vmin);
   color: white;
+}
+
+
+@keyframes animateBg{
+  0%{
+    opacity: 0;
+  }
+  25%{
+    opacity: 0.25;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  75%{
+    opacity: 0.75;
+  }
+  100%{
+    opacity: 1;
+  }
+
 }
 
 

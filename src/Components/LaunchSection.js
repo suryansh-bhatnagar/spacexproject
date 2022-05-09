@@ -2,30 +2,45 @@ import { useState, useEffect } from "react";
 import './LaunchSection.css'
 import axiosInstance from "../Axios";
 
-// import Spinner from "./Spinner";
 
-const LaunchSection = ({ launchId }) => {
+
+const LaunchSection = ({ launchId , setLoading , setlaunchId
+
+ }) => {
   const [launchData, setlaunchData] = useState([]);
 
   useEffect(() => {
+    // if launchId is empty then assigning value to it
+    if(launchId==="" && localStorage.getItem('myKey')){
+      let temp  = localStorage.getItem('myKey');
+      setlaunchId(temp);
+    }
     fetchlaunch(launchId);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [launchId]);
 
 
+  useEffect(() => {
+// Storing the launch id in local storage so that if we refresh the page we will not lose the data
+    if(launchId !== ""){
+      localStorage.setItem('myKey', launchId);
+ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  
+
+
   async function fetchlaunch(id) {
+          // Fetching the data of particular launch using its id
   await  axiosInstance
       .get(`https://api.spacexdata.com/v4/launches/${id}`)
       .then((res) => {
         return res;
       })
       .then((data) => {
-        //   setlaunchData(data.data);
         setlaunchData(data.data);
-        console.log(data.data);
-        console.log(launchData);
-        console.log( launchData.cores[0].reused);
+       setLoading(false)
         
       })
       .catch((error) => {
@@ -37,17 +52,17 @@ const LaunchSection = ({ launchId }) => {
     <>
    
       <div className="main">
-      
-      <div class="card text-white  text-center w-50">
-  <div class="card-header">
-    Featured
+      <div className="card text-white  text-center w-50">
+  <div className="card-header">
+    ABOUT LAUNCH 
   </div>
-  <div class="card-body">
-    <h5 class="card-title">{launchData.name}</h5>
-    <p class="card-text">{launchData.details}</p>
-    <a href={launchData.links && launchData.links.webcast} target='_blank' rel="noreferrer" class="btn btn-primary">See Webcast</a>
+  <div className="card-body">
+    <h5 className="card-title">{launchData.name}</h5>
+    <p className="card-text">{launchData.details===null? "No details" : launchData.details}</p>
+    <p className="card-text"> <span>Reused : </span> {launchData.reused === true ? "True" : "False"}</p>
+    <a className="webcastBtn" href={launchData.links && launchData.links.webcast} target='_blank' rel="noreferrer">Webcast</a>
   </div>
-  <div class="card-footer ">
+  <div className="card-footer text-muted ">
    {launchData.date_local}
   </div>
 </div>

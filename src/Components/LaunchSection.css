@@ -1,8 +1,5 @@
 .main{
     min-height: 100vh;
-    
-
-    /* background-color: #2d313a; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +7,7 @@
 
 .card{
     border: 2px solid whitesmoke;
+    min-width: 70vw;
     background: rgba(255, 255, 255, 0.01);
     box-shadow: 0 8px  32px 0 rgba(31, 38, 135, 0.37);
     border-radius: 10px;
@@ -17,9 +15,58 @@
     -webkit-backdrop-filter: blur(3.5px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: whitesmoke;
+    animation: animateCard 1s ease-in;
+}
+
+.webcastBtn{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.932);
+    border: 1px solid rgba(255, 255, 255, 0.932);
+     padding: 8px;
+    font-weight: 500;
+    border-radius: .5rem;
+}
+
+.webcastBtn:hover{
+    color: rgba(255, 255, 255, 0.932);
+    box-shadow: 0 8px  32px 0 rgba(31, 38, 135, 0.97);
+    border: none;
 }
 .card-footer{
-    
+    border-top: 1px solid rgb(180, 225, 225);
+    color: whitesmoke;
+}
+.card-header{
+    border-bottom: 1px solid rgb(180, 193, 193);
     color: whitesmoke;
 }
 
+@keyframes animateCard{
+    0%{
+      opacity: 0;
+    }
+    25%{
+      opacity: 0.25;
+    }
+    50%{
+      opacity: 0.5;
+    }
+    75%{
+      opacity: 0.75;
+    }
+    100%{
+      opacity: 1;
+    }
+  
+  }
+
+
+  @media screen and (min-width: 480px) {
+    .card {
+      min-width: 30vw;
+    }
+  }
+
+
+
+  

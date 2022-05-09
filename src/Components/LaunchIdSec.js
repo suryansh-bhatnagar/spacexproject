@@ -1,18 +1,27 @@
-import React ,{useState} from 'react';
-import {useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const LaunchIdSec = ({index , elem , setlaunchId}) => {
-    let navigate = useNavigate();
-    const [auth, setAuth] = useState(true)
-    if(!auth){
-        return navigate("/launchitem", {replace: true})
+const LaunchIdSec = ({ launchData, index, elem, setlaunchId }) => {
+  // Fetching name of launches to display in the table
+  const generateName = (element, data) => {
+    let launchElement = launchData.filter((x) => x.id === element);
+    if (launchElement[0]) {
+      return launchElement[0].name;
     }
+  };
 
   return (
-    <p className="nav-link" key={index} onClick={()=>{setlaunchId(elem)
-    setAuth(false)}}
-    >{elem}</p>
-  )
-}
+    <Link
+      className="nav-link text-white"
+      key={index}
+      to="/launchitem"
+      onClick={() => {
+        setlaunchId(elem);
+      }}
+    >
+      {generateName(elem, launchData)}
+    </Link>
+  );
+};
 
-export default LaunchIdSec
+export default LaunchIdSec;
